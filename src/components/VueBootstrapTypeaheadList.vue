@@ -107,7 +107,7 @@ export default {
 
   methods: {
     handleHit(item, evt) {
-      this.$emit('hit', item)
+      if(item.clickable) {this.$emit('hit', item)}
       evt.preventDefault()
     }
   }

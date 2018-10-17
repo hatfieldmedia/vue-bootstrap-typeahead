@@ -115,7 +115,8 @@ export default {
         return {
           id: i,
           data: d,
-          text: this.serializer(d)
+          text: this.serializer(d),
+          clickable: d.hasOwnProperty('clickable') ? d.clickable : true
         }
       })
     }
