@@ -34,6 +34,7 @@
       :text-variant="textVariant"
       :maxMatches="maxMatches"
       :minMatchingChars="minMatchingChars"
+      :sortMatches="sortMatches"
       @hit="handleHit"
     >
       <!-- pass down all scoped slots -->
@@ -94,7 +95,11 @@ export default {
     },
     placeholder: String,
     prepend: String,
-    append: String
+    append: String,
+    sortMatches: {
+        type: Boolean,
+        default: true
+    }
   },
 
   computed: {
@@ -110,7 +115,8 @@ export default {
         return {
           id: i,
           data: d,
-          text: this.serializer(d)
+          text: this.serializer(d),
+          clickable: d.hasOwnProperty('clickable') ? d.clickable : true
         }
       })
     }
