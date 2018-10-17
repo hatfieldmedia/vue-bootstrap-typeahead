@@ -3,6 +3,7 @@
     <vue-bootstrap-typeahead-list-item
       v-for="(item, id) in matchedItems" :key="id"
       :data="item.data"
+      :clickable="item.clickable"
       :html-text="highlight(item.text)"
       :background-variant="backgroundVariant"
       :text-variant="textVariant"
