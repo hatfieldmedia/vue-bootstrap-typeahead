@@ -26,6 +26,9 @@ export default {
     },
     textVariant: {
       type: String
+    },
+    clickable: {
+        type: Boolean
     }
   },
 
@@ -41,7 +44,7 @@ export default {
       classes += this.active ? 'active' : ''
       classes += this.backgroundVariant ? ` bg-${this.backgroundVariant}` : ''
       classes += this.textVariant ? ` text-${this.textVariant}` : ''
-      classes += this.data.clickable ? 'clickable' : ''
+      classes += this.clickable ? ' clickable' : ''
       return `vbst-item list-group-item list-group-item-action ${classes}`
     }
   }
