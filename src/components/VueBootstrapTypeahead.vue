@@ -165,9 +165,13 @@ export default {
     },
 
     navigate(e){
-        console.log('hi')
-        document.onkeydown = function(e) {
-            console.log(e)
+        if(e.keyCode == 38){
+            //up
+            console.log('up')
+        }
+        else if(e.keyCode == 40){
+            //down
+            console.log('down')
         }
     },
 
