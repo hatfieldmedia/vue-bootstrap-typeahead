@@ -99,7 +99,7 @@ export default {
     sortMatches: {
         type: Boolean,
         default: true
-    }
+    },
   },
 
   computed: {
@@ -170,7 +170,8 @@ export default {
   data() {
     return {
       isFocused: false,
-      inputValue: ''
+      inputValue: '',
+      test: '',
     }
   },
 
