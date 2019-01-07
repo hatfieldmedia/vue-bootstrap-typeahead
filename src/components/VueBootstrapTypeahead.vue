@@ -13,7 +13,7 @@
         :placeholder="placeholder"
         :aria-label="placeholder"
         :value="inputValue"
-        @focus="isFocused = true"
+        @focus="handleInput()"
         @blur="handleBlur"
         @input="handleInput($event.target.value)"
         autocomplete="off"
@@ -149,12 +149,22 @@ export default {
       this.isFocused = false
     },
 
+    handleFocus() {
+        this.isFocused = true
+    },
+
     handleBlur(evt) {
       const tgt = evt.relatedTarget
       if (tgt && tgt.classList.contains('vbst-item')) {
         return
       }
       this.isFocused = false
+    },
+
+    navigate(e){
+        document.onkeydown = function(e) {
+            console.log(e)
+        }
     },
 
     handleInput(newValue) {
@@ -171,8 +181,6 @@ export default {
     return {
       isFocused: false,
       inputValue: '',
-      test: '',
-      test2: ''
     }
   },
 
