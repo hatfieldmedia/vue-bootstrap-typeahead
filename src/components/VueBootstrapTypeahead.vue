@@ -172,6 +172,7 @@ export default {
       isFocused: false,
       inputValue: '',
       test: '',
+      test2: ''
     }
   },
 
