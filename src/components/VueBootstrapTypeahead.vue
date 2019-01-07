@@ -161,7 +161,7 @@ export default {
         return
       }
       this.isFocused = false
-      document.removeEventListener('navigateList')
+      document.removeEventListener('keydown', this.navigate)
     },
 
     navigate(e){
