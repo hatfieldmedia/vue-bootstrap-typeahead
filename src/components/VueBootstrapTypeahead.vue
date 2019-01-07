@@ -151,6 +151,8 @@ export default {
 
     handleFocus() {
         this.isFocused = true
+        console.log('focus fire')
+        document.addEventListener('keydown', this.navigate)
     },
 
     handleBlur(evt) {
@@ -159,9 +161,11 @@ export default {
         return
       }
       this.isFocused = false
+      document.removeEventListener('navigateList')
     },
 
     navigate(e){
+        console.log('hi')
         document.onkeydown = function(e) {
             console.log(e)
         }
