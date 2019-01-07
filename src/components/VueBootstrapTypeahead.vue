@@ -13,7 +13,7 @@
         :placeholder="placeholder"
         :aria-label="placeholder"
         :value="inputValue"
-        @focus="handleInput()"
+        @focus="handleFocus()"
         @blur="handleBlur"
         @input="handleInput($event.target.value)"
         autocomplete="off"
