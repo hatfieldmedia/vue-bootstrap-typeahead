@@ -25,17 +25,17 @@
       </div>
     </div>
     <vue-bootstrap-typeahead-list
-      class="vbt-autcomplete-list"
-      ref="list"
-      v-show="isFocused && data.length > 0"
-      :query="inputValue"
-      :data="formattedData"
-      :background-variant="backgroundVariant"
-      :text-variant="textVariant"
-      :maxMatches="maxMatches"
-      :minMatchingChars="minMatchingChars"
-      :sortMatches="sortMatches"
-      @hit="handleHit"
+        class="vbt-autcomplete-list"
+        ref="list"
+        v-show="isFocused && data.length > 0"
+        :query="inputValue"
+        :data="formattedData"
+        :background-variant="backgroundVariant"
+        :text-variant="textVariant"
+        :maxMatches="maxMatches"
+        :minMatchingChars="minMatchingChars"
+        :sortMatches="sortMatches"
+        @hit="handleHit"
     >
       <!-- pass down all scoped slots -->
       <template v-for="(slot, slotName) in $scopedSlots" :slot="slotName" slot-scope="{ data, htmlText }">
@@ -100,6 +100,9 @@ export default {
         type: Boolean,
         default: true
     },
+    id: {
+
+    }
   },
 
   computed: {
@@ -139,6 +142,7 @@ export default {
     },
 
     handleHit(evt) {
+        console.log(evt)
       if (typeof this.value !== 'undefined') {
         this.$emit('input', evt.text)
       }
@@ -151,7 +155,6 @@ export default {
 
     handleFocus() {
         this.isFocused = true
-        console.log('focus fire')
         document.addEventListener('keydown', this.navigate)
     },
 
