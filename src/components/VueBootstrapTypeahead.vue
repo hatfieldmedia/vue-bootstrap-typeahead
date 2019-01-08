@@ -173,6 +173,7 @@ export default {
         let activeListItem = $('#' + this.id).children('.clickable:focus');
         console.log('active list item: ', activeListItem)
         if(e.keyCode == 38){
+            console.log($(activeListItem).prevAll('.clickable').length)
             if($(activeListItem).prevAll('.clickable').length != 0){
                 $(activeListItem).blur()
                 activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).prevAll('.clickable').first()
@@ -180,6 +181,7 @@ export default {
             }
         }
         else if(e.keyCode == 40){
+            console.log($(activeListItem).nextAll('.clickable').length)
             if($(activeListItem).nextAll('.clickable').length != 0){
                 $(activeListItem).blur()
                 activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).nextAll('.clickable').first()
