@@ -7,13 +7,14 @@
         </slot>
       </div>
       <input
+        :id="id + '-input'"
         ref="input"
         type="search"
         :class="`form-control ${inputClass}`"
         :placeholder="placeholder"
         :aria-label="placeholder"
         :value="inputValue"
-        @focus="isFocused = true"
+        @focus="handleFocus()"
         @blur="handleBlur"
         @input="handleInput($event.target.value)"
         autocomplete="off"
@@ -25,17 +26,18 @@
       </div>
     </div>
     <vue-bootstrap-typeahead-list
-      class="vbt-autcomplete-list"
-      ref="list"
-      v-show="isFocused && data.length > 0"
-      :query="inputValue"
-      :data="formattedData"
-      :background-variant="backgroundVariant"
-      :text-variant="textVariant"
-      :maxMatches="maxMatches"
-      :minMatchingChars="minMatchingChars"
-      :sortMatches="sortMatches"
-      @hit="handleHit"
+        class="vbt-autcomplete-list"
+        ref="list"
+        v-show="isFocused && data.length > 0"
+        :query="inputValue"
+        :data="formattedData"
+        :background-variant="backgroundVariant"
+        :text-variant="textVariant"
+        :maxMatches="maxMatches"
+        :minMatchingChars="minMatchingChars"
+        :sortMatches="sortMatches"
+        @hit="handleHit"
+        :id="id"
     >
       <!-- pass down all scoped slots -->
       <template v-for="(slot, slotName) in $scopedSlots" :slot="slotName" slot-scope="{ data, htmlText }">
@@ -99,6 +101,11 @@ export default {
     sortMatches: {
         type: Boolean,
         default: true
+    },
+    id: {
+        type: String,
+        required: false,
+        default: 'typeahead'
     }
   },
 
@@ -149,12 +156,44 @@ export default {
       this.isFocused = false
     },
 
+    handleFocus() {
+        this.isFocused = true
+        document.addEventListener('keydown', this.navigate)
+    },
+
     handleBlur(evt) {
       const tgt = evt.relatedTarget
       if (tgt && tgt.classList.contains('vbst-item')) {
         return
       }
       this.isFocused = false
+      document.removeEventListener('keydown', this.navigate)
+    },
+
+    navigate(e){
+        let activeListItem = $('#' + this.id).children('.clickable:focus');
+        activeListItem = $('#' + this.id + '-input').is(':focus') ? $('#' + this.id).children().first() : activeListItem
+        if(e.keyCode == 38){
+            if($(activeListItem).prevAll('.clickable').length != 0){
+                $(activeListItem).blur()
+                activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).prevAll('.clickable').first()
+                $(activeListItem).focus()
+            }
+        }
+        else if(e.keyCode == 40){
+            if($(activeListItem).nextAll('.clickable').length != 0){
+                $(activeListItem).blur()
+                activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).nextAll('.clickable').first()
+                $(activeListItem).focus()
+            }
+        }
+        else if(e.keyCode != 9 && e.keyCode != 13){
+            if(!$('#' + this.id + '-input').is(':focus')){
+                $('#' + this.id + '-input').focus()
+                this.handleInput(this.inputValue + $('#' + this.id + '').val())
+                $('#' + this.id).scrollTop(0)
+            }
+        }
     },
 
     handleInput(newValue) {
@@ -170,10 +209,10 @@ export default {
   data() {
     return {
       isFocused: false,
-      inputValue: ''
+      inputValue: '',
     }
   },
-
+ 
   mounted() {
     this.$_ro = new ResizeObserver(e => {
       this.resizeList(this.$refs.input)
