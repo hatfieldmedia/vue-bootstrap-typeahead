@@ -7,6 +7,7 @@
         </slot>
       </div>
       <input
+        :id="id + '-input'"
         ref="input"
         type="search"
         :class="`form-control ${inputClass}`"
@@ -171,9 +172,8 @@ export default {
 
     navigate(e){
         let activeListItem = $('#' + this.id).children('.clickable:focus');
-        console.log('active list item: ', activeListItem)
+        activeListItem = $('#' + this.id + '-input').is(':focus') ? $('#' + this.id).children().first() : activeListItem
         if(e.keyCode == 38){
-            console.log($(activeListItem).prevAll('.clickable').length)
             if($(activeListItem).prevAll('.clickable').length != 0){
                 $(activeListItem).blur()
                 activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).prevAll('.clickable').first()
@@ -181,11 +181,17 @@ export default {
             }
         }
         else if(e.keyCode == 40){
-            console.log($(activeListItem).nextAll('.clickable').length)
             if($(activeListItem).nextAll('.clickable').length != 0){
                 $(activeListItem).blur()
                 activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).nextAll('.clickable').first()
                 $(activeListItem).focus()
+            }
+        }
+        else if(e.keyCode != 9 && e.keyCode != 13){
+            if(!$('#' + this.id + '-input').is(':focus')){
+                $('#' + this.id + '-input').focus()
+                this.handleInput(this.inputValue + $('#' + this.id + '').val())
+                $('#' + this.id).scrollTop(0)
             }
         }
     },
