@@ -173,16 +173,18 @@ export default {
         let activeListItem = $('#' + this.id).children('.clickable:focus');
         console.log('active list item: ', activeListItem)
         if(e.keyCode == 38){
-            $(activeListItem).blur()
-            activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).prevAll('.clickable').first()
-            $(activeListItem).focus()
-            console.log('up', activeListItem)
+            if($(activeListItem).prevAll('.clickable').first().length != 0){
+                $(activeListItem).blur()
+                activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).prevAll('.clickable').first()
+                $(activeListItem).focus()
+            }
         }
         else if(e.keyCode == 40){
-            $(activeListItem).blur()
-            activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).nextAll('.clickable').first()
-            $(activeListItem).focus()
-            console.log('down', activeListItem)
+            if($(activeListItem).nextAll('.clickable').first().length != 0){
+                $(activeListItem).blur()
+                activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).nextAll('.clickable').first()
+                $(activeListItem).focus()
+            }
         }
     },
 
