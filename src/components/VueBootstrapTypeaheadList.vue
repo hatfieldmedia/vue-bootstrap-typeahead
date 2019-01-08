@@ -1,5 +1,5 @@
 <template>
-  <div class="list-group shadow">
+  <div :id="id" class="list-group shadow">
     <vue-bootstrap-typeahead-list-item
       v-for="(item, id) in matchedItems" :key="id"
       :data="item.data"
@@ -61,6 +61,9 @@ export default {
     sortMatches: {
         type: Boolean,
         default: true
+    },
+    id{
+        type: String
     }
   },
 

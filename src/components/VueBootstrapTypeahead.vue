@@ -36,6 +36,7 @@
         :minMatchingChars="minMatchingChars"
         :sortMatches="sortMatches"
         @hit="handleHit"
+        :id="id"
     >
       <!-- pass down all scoped slots -->
       <template v-for="(slot, slotName) in $scopedSlots" :slot="slotName" slot-scope="{ data, htmlText }">
@@ -101,7 +102,9 @@ export default {
         default: true
     },
     id: {
-
+        type: String,
+        required: false,
+        default: 'typeahead'
     }
   },
 
@@ -142,7 +145,6 @@ export default {
     },
 
     handleHit(evt) {
-        console.log(evt)
       if (typeof this.value !== 'undefined') {
         this.$emit('input', evt.text)
       }
@@ -168,13 +170,19 @@ export default {
     },
 
     navigate(e){
+        let activeListItem = $('#' + id).children('clickable:focus');
+        console.log('active list item: ', activeListItem)
         if(e.keyCode == 38){
-            //up
-            console.log('up')
+            $(activeListItem).blur()
+            activeListItem = activeListItem == 'undefined' ? $('#' + id).children('clickable').first() : $(activeListItem).prev()
+            $(activeListItem).focus()
+            console.log('up', activeListItem)
         }
         else if(e.keyCode == 40){
-            //down
-            console.log('down')
+            $(activeListItem).blur()
+            activeListItem = activeListItem == 'undefined' ? $('#' + id).children('clickable').first() : $(activeListItem).next()
+            $(activeListItem).focus()
+            console.log('down', activeListItem)
         }
     },
 
