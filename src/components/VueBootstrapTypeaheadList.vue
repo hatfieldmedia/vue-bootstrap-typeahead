@@ -62,7 +62,7 @@ export default {
         type: Boolean,
         default: true
     },
-    id{
+    id: {
         type: String
     }
   },
