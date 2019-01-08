@@ -174,13 +174,13 @@ export default {
         console.log('active list item: ', activeListItem)
         if(e.keyCode == 38){
             $(activeListItem).blur()
-            activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).prev()
+            activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).prev('.clickable')
             $(activeListItem).focus()
             console.log('up', activeListItem)
         }
         else if(e.keyCode == 40){
             $(activeListItem).blur()
-            activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).next()
+            activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).next('.clickable')
             $(activeListItem).focus()
             console.log('down', activeListItem)
         }
