@@ -170,17 +170,17 @@ export default {
     },
 
     navigate(e){
-        let activeListItem = $('#' + this.id).children('clickable:focus');
+        let activeListItem = $('#' + this.id).children('.clickable:focus');
         console.log('active list item: ', activeListItem)
         if(e.keyCode == 38){
             $(activeListItem).blur()
-            activeListItem = activeListItem == 'undefined' ? $('#' + id).children('clickable').first() : $(activeListItem).prev()
+            activeListItem = activeListItem == 'undefined' ? $('#' + id).children('.clickable').first() : $(activeListItem).prev()
             $(activeListItem).focus()
             console.log('up', activeListItem)
         }
         else if(e.keyCode == 40){
             $(activeListItem).blur()
-            activeListItem = activeListItem == 'undefined' ? $('#' + id).children('clickable').first() : $(activeListItem).next()
+            activeListItem = activeListItem == 'undefined' ? $('#' + id).children('.clickable').first() : $(activeListItem).next()
             $(activeListItem).focus()
             console.log('down', activeListItem)
         }
