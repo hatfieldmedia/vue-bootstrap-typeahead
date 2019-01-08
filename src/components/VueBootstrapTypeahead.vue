@@ -173,14 +173,14 @@ export default {
         let activeListItem = $('#' + this.id).children('.clickable:focus');
         console.log('active list item: ', activeListItem)
         if(e.keyCode == 38){
-            if($(activeListItem).prevAll('.clickable').first().length != 0){
+            if($(activeListItem).prevAll('.clickable').length != 0){
                 $(activeListItem).blur()
                 activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).prevAll('.clickable').first()
                 $(activeListItem).focus()
             }
         }
         else if(e.keyCode == 40){
-            if($(activeListItem).nextAll('.clickable').first().length != 0){
+            if($(activeListItem).nextAll('.clickable').length != 0){
                 $(activeListItem).blur()
                 activeListItem = activeListItem.length == 0 ? $('#' + this.id).children('.clickable').first() : $(activeListItem).nextAll('.clickable').first()
                 $(activeListItem).focus()
@@ -204,7 +204,7 @@ export default {
       inputValue: '',
     }
   },
-
+ 
   mounted() {
     this.$_ro = new ResizeObserver(e => {
       this.resizeList(this.$refs.input)
