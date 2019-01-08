@@ -170,7 +170,7 @@ export default {
     },
 
     navigate(e){
-        let activeListItem = $('#' + id).children('clickable:focus');
+        let activeListItem = $('#' + this.id).children('clickable:focus');
         console.log('active list item: ', activeListItem)
         if(e.keyCode == 38){
             $(activeListItem).blur()
