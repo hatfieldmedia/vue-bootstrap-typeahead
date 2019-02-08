@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :id="id">
     <div :class="sizeClasses">
       <div ref="prependDiv" v-if="$slots.prepend || prepend" class="input-group-prepend">
         <slot name="prepend">
@@ -158,7 +158,8 @@ export default {
 
     handleFocus() {
         this.isFocused = true
-        document.addEventListener('keydown', this.navigate)
+        var element = document.getElementById(this.id)
+        element.addEventListener('keydown', this.navigate)
     },
 
     handleBlur(evt) {
@@ -167,7 +168,8 @@ export default {
         return
       }
       this.isFocused = false
-      document.removeEventListener('keydown', this.navigate)
+      var element = document.getElementById(this.id)
+      element.removeEventListener('keydown', this.navigate)
     },
 
     navigate(e){
